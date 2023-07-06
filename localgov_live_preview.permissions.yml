@@ -1,0 +1,4 @@
+administer localgov_live_preview configuration:
+  title: 'Administer localgov_live_preview configuration'
+  description: 'Optional description.'
+  restrict access: true
