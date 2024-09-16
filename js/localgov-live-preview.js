@@ -75,10 +75,14 @@
         });
       };
 
+      // Default Items
       const [bodyFont] = once('bodyFont', '[data-drupal-selector="edit-lgms-body-font"]', context);
       const [headingFont] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-font"]', context);
       const [headingFontWeightField] = once('headingFontWeightField', '[data-drupal-selector="edit-lgms-heading-font-weight"]', context);
+      const [siteNameWeightField] = once('siteNameWeightField', '[data-drupal-selector="edit-lgms-site-name-font-weight"]', context);
+      const [headerItemsVerticalAlighmentField] = once('headerItemsVerticalAlighmentField', '[data-drupal-selector="edit-lgms-header-vertical-alignment"]', context);
 
+      // Headings
       const [headingFont1] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-1-font"]', context);
       const [headingFontWeight1] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-1-font-weight"]', context);
 
@@ -97,6 +101,7 @@
       const [headingFont6] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-6-font"]', context);
       const [headingFontWeight6] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-6-font-weight"]', context);
 
+      // Defaut Items
       if (bodyFont) {
         handleSelectChange(bodyFont, "--font-primary");
       }
@@ -106,7 +111,14 @@
       if (headingFontWeightField) {
         handleSelectChange(headingFontWeightField, "--heading-font-weight");
       }
+      if (siteNameWeightField) {
+        handleSelectChange(siteNameWeightField, "--site-name-font-weight");
+      }
+      if (headerItemsVerticalAlighmentField) {
+        handleSelectChange(headerItemsVerticalAlighmentField, "--header-items-alignment");
+      }
 
+      // Headings
       if (headingFont1) {
         handleSelectChange(headingFont1, "--font-heading-1");
       }
@@ -246,6 +258,50 @@
           if (fieldBeingEditedName === "edit-lgms-heading-6-line-height-0-value") {
             handleFieldChange(fieldBeingEdited, "--heading-6-line-height");
           }
+
+          // Pre-header
+          if (fieldBeingEditedName === "edit-lgms-pre-header-bg-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--pre-header-background-color");
+          }
+          if (fieldBeingEditedName === "edit-lgms-pre-header-text-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--pre-header-text-color");
+          }
+          if (fieldBeingEditedName === "edit-lgms-pre-header-link-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--pre-header-link-color");
+          }
+          if (fieldBeingEditedName === "edit-lgms-pre-header-link-hover-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--pre-header-link-hover-color");
+          }
+
+          // Header
+          if (fieldBeingEditedName === "edit-lgms-header-bg-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--header-background-color");
+          }
+          if (fieldBeingEditedName === "edit-lgms-header-text-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--header-text-color");
+          }
+          if (fieldBeingEditedName === "edit-lgms-header-link-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--header-link-color");
+          }
+          if (fieldBeingEditedName === "edit-lgms-header-link-hover-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--header-link-hover-color");
+          }
+
+          // Footer
+          if (fieldBeingEditedName === "edit-lgms-footer-bg-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--footer-background-color");
+          }
+          if (fieldBeingEditedName === "edit-lgms-footer-text-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--footer-text-color");
+          }
+          if (fieldBeingEditedName === "edit-lgms-footer-link-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--footer-link-color");
+          }
+          if (fieldBeingEditedName === "edit-lgms-footer-link-hover-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--footer-link-hover-color");
+          }
+
+
 
         }
       });
