@@ -42,19 +42,48 @@
           dialogRenderer: 'off_canvas',
           dialog: { width: 400 },
         };
-        // var myAjaxObject = Drupal.ajax(ajaxSettings);
         Drupal.ajax(ajaxSettings).execute();
       });
+
+      function handleFieldChange(fieldBeingEdited, cssVariableName) {
+        fieldBeingEdited.addEventListener("change", () => {
+          bodyElement.style.setProperty(
+            cssVariableName,
+            fieldBeingEdited.value
+          );
+        });
+        const colourPickerInput = fieldBeingEdited
+          .closest(".colour-picker-field")
+          .querySelector(".colour-picker-field__picker");
+        if (colourPickerInput) {
+          colourPickerInput.addEventListener("input", () => {
+            bodyElement.style.setProperty(
+              cssVariableName,
+              colourPickerInput.value
+            );
+            colourPickerInput.closest(".colour-picker-field").querySelector(".colour-picker-field__text").value = colourPickerInput.value;
+          });
+        }
+      }
+
+      const [headingFontWeightField] = once('headingFontWeightField', '[data-drupal-selector="edit-lgms-heading-font-weight"]', context);
+
+      if (headingFontWeightField) {
+        headingFontWeightField.addEventListener("change", () => {
+          bodyElement.style.setProperty(
+            '--heading-font-weight',
+            headingFontWeightField.value
+          );
+        });
+      }
 
       window.addEventListener("click", function (e) {
         // If this is true, then we are in the edit form inside a modal
         if (e.target.closest(".ui-dialog .group-microsite-edit-form")) {
           const fieldBeingEdited = e.target;
-          console.log(fieldBeingEdited);
           const fieldBeingEditedName = e.target.dataset.drupalSelector;
 
           let correspondingField;
-
           // The title field is a special case, where the field name does not
           // correspond with the class name of the field being edited
           if (fieldBeingEditedName === "edit-label-0-value") {
@@ -66,63 +95,34 @@
             });
           }
 
-          // I'm hardcoding the field names here for now as proof-of-concept
-          // It will take a little bit of a formula to figure out how to
-          // make a generic solution for this with the fields corresponding
-          // to the correct css variables
           if (fieldBeingEditedName === "edit-lgms-primary-colour-0-value") {
-            fieldBeingEdited.addEventListener("change", () => {
-              bodyElement.style.setProperty(
-                "--color-accent",
-                fieldBeingEdited.value
-              );
-              console.log(fieldBeingEdited.value);
-            });
+            handleFieldChange(fieldBeingEdited, "--color-accent");
           }
-          if (
-            fieldBeingEdited.classList.contains("colour-picker-field__picker")
-          ) {
-            const actualField = fieldBeingEdited
-              .closest(".colour-picker-field")
-              .querySelector("input").dataset.drupalSelector;
-            console.log("colour picker field");
-            fieldBeingEdited.addEventListener("input", () => {
-              if (actualField === "edit-lgms-primary-colour-0-value") {
-                bodyElement.style.setProperty(
-                  "--color-accent",
-                  fieldBeingEdited.value
-                );
-              }
-            });
+          if (fieldBeingEditedName === "edit-lgms-primary-colour-contrast-0-value") {
+            handleFieldChange(fieldBeingEdited, "--color-accent-contrast");
           }
-          if (
-            fieldBeingEditedName === "edit-lgms-primary-colour-contrast-0-value"
-          ) {
-            fieldBeingEdited.addEventListener("change", () => {
-              bodyElement.style.setProperty(
-                "--color-accent-contrast",
-                fieldBeingEdited.value
-              );
-              console.log(fieldBeingEdited.value);
-            });
+          if (fieldBeingEditedName === "edit-lgms-secondary-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--color-secondary");
           }
-          if (
-            fieldBeingEdited.classList.contains("colour-picker-field__picker")
-          ) {
-            // The "actualField" is the text input that is actually being edited
-            const actualField = fieldBeingEdited
-              .closest(".colour-picker-field")
-              .querySelector("input").dataset.drupalSelector;
-            console.log("colour picker field");
-            fieldBeingEdited.addEventListener("input", () => {
-              if (actualField === "edit-lgms-primary-colour-contrast-0-value") {
-                bodyElement.style.setProperty(
-                  "--color-accent-contrast",
-                  fieldBeingEdited.value
-                );
-              }
-            });
+          if (fieldBeingEditedName === "edit-lgms-secondary-colour-contrast-0-value") {
+            handleFieldChange(fieldBeingEdited, "--color-secondary-contrast");
           }
+          if (fieldBeingEditedName === "edit-lgms-text-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--color-text");
+          }
+          if (fieldBeingEditedName === "edit-lgms-page-background-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--page-background-color");
+          }
+          if (fieldBeingEditedName === "edit-lgms-link-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--color-link");
+          }
+          if (fieldBeingEditedName === "edit-lgms-base-line-height-0-value") {
+            handleFieldChange(fieldBeingEdited, "--line-height");
+          }
+          if (fieldBeingEditedName === "edit-lgms-base-spacing-0-value") {
+            handleFieldChange(fieldBeingEdited, "--spacing");
+          }
+
         }
       });
     },
