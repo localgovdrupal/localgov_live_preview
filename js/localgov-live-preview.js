@@ -2,7 +2,7 @@
 (function localovLivePreviewScript(Drupal) {
   Drupal.behaviors.localovLivePreview = {
     attach: function (context, settings) {
-      const [bodyElement] = once("bodyElement", "body", context);
+      const bodyElement = document.querySelector("body");
       const tabsLists = once(
         "allTabs",
         ".block-local-tasks-block .tabs > ul",
@@ -84,23 +84,24 @@
       const [headerItemsVerticalAlighmentField] = once('headerItemsVerticalAlighmentField', '[data-drupal-selector="edit-lgms-header-vertical-alignment"]', context);
 
       // Headings
-      const [headingFont1] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-1-font"]', context);
-      const [headingFontWeight1] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-1-font-weight"]', context);
+      // Store references to heading font and font weight elements in arrays
+      const headingFonts = [
+        once('headingFont', '[data-drupal-selector="edit-lgms-heading-1-font"]', context)[0],
+        once('headingFont', '[data-drupal-selector="edit-lgms-heading-2-font"]', context)[0],
+        once('headingFont', '[data-drupal-selector="edit-lgms-heading-3-font"]', context)[0],
+        once('headingFont', '[data-drupal-selector="edit-lgms-heading-4-font"]', context)[0],
+        once('headingFont', '[data-drupal-selector="edit-lgms-heading-5-font"]', context)[0],
+        once('headingFont', '[data-drupal-selector="edit-lgms-heading-6-font"]', context)[0]
+      ];
 
-      const [headingFont2] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-2-font"]', context);
-      const [headingFontWeight2] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-2-font-weight"]', context);
-
-      const [headingFont3] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-3-font"]', context);
-      const [headingFontWeight3] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-3-font-weight"]', context);
-
-      const [headingFont4] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-4-font"]', context);
-      const [headingFontWeight4] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-4-font-weight"]', context);
-
-      const [headingFont5] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-5-font"]', context);
-      const [headingFontWeight5] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-5-font-weight"]', context);
-
-      const [headingFont6] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-6-font"]', context);
-      const [headingFontWeight6] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-6-font-weight"]', context);
+      const headingFontWeights = [
+        once('headingFont', '[data-drupal-selector="edit-lgms-heading-1-font-weight"]', context)[0],
+        once('headingFont', '[data-drupal-selector="edit-lgms-heading-2-font-weight"]', context)[0],
+        once('headingFont', '[data-drupal-selector="edit-lgms-heading-3-font-weight"]', context)[0],
+        once('headingFont', '[data-drupal-selector="edit-lgms-heading-4-font-weight"]', context)[0],
+        once('headingFont', '[data-drupal-selector="edit-lgms-heading-5-font-weight"]', context)[0],
+        once('headingFont', '[data-drupal-selector="edit-lgms-heading-6-font-weight"]', context)[0]
+      ];
 
       // Main menu
       const [mainMenuLinkFontWeight] = once('mainMenuLinkFontWeight', '[data-drupal-selector="edit-lgms-main-menu-font-weight"]', context);
@@ -129,42 +130,15 @@
       }
 
       // Headings
-      if (headingFont1) {
-        handleSelectFieldChange(headingFont1, "--font-heading-1");
+      for (let i = 0; i <= 5; i++) {
+        if (headingFonts[i]) {
+          handleSelectFieldChange(headingFonts[i], `--font-heading-${i + 1}`);
+        }
+        if (headingFontWeights[i]) {
+          handleSelectFieldChange(headingFontWeights[i], `--heading-${i + 1}-font-weight`);
+        }
       }
-      if (headingFontWeight1) {
-        handleSelectFieldChange(headingFontWeight1, "--heading-1-font-weight");
-      }
-      if (headingFont2) {
-        handleSelectFieldChange(headingFont2, "--font-heading-2");
-      }
-      if (headingFontWeight2) {
-        handleSelectFieldChange(headingFontWeight2, "--heading-2-font-weight");
-      }
-      if (headingFont3) {
-        handleSelectFieldChange(headingFont3, "--font-heading-3");
-      }
-      if (headingFontWeight3) {
-        handleSelectFieldChange(headingFontWeight3, "--heading-3-font-weight");
-      }
-      if (headingFont4) {
-        handleSelectFieldChange(headingFont4, "--font-heading-4");
-      }
-      if (headingFontWeight4) {
-        handleSelectFieldChange(headingFontWeight4, "--heading-4-font-weight");
-      }
-      if (headingFont5) {
-        handleSelectFieldChange(headingFont5, "--font-heading-5");
-      }
-      if (headingFontWeight5) {
-        handleSelectFieldChange(headingFontWeight5, "--heading-5-font-weight");
-      }
-      if (headingFont6) {
-        handleSelectFieldChange(headingFont6, "--font-heading-6");
-      }
-      if (headingFontWeight6) {
-        handleSelectFieldChange(headingFontWeight6, "--heading-6-font-weight");
-      }
+
 
       // Main menu
       if (mainMenuLinkFontWeight) {
@@ -190,18 +164,6 @@
         if (e.target.closest(".ui-dialog .group-microsite-edit-form")) {
           const fieldBeingEdited = e.target;
           const fieldBeingEditedName = e.target.dataset.drupalSelector;
-
-          let correspondingField;
-          // The title field is a special case, where the field name does not
-          // correspond with the class name of the field being edited
-          if (fieldBeingEditedName === "edit-label-0-value") {
-            let correspondingField = context.querySelector(
-              ".microsite-header__name"
-            );
-            fieldBeingEdited.addEventListener("keyup", () => {
-              correspondingField.textContent = fieldBeingEdited.value;
-            });
-          }
 
           // Default items
           if (fieldBeingEditedName === "edit-lgms-primary-colour-0-value") {
@@ -233,59 +195,17 @@
           }
 
           // Headings
-          if (fieldBeingEditedName === "edit-lgms-heading-1-font-size-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--font-size-h1");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-2-font-size-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--font-size-h2");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-3-font-size-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--font-size-h3");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-4-font-size-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--font-size-h4");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-5-font-size-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--font-size-h5");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-6-font-size-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--font-size-h6");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-1-font-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--heading-1-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-2-font-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--heading-2-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-3-font-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--heading-3-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-4-font-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--heading-4-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-5-font-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--heading-5-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-6-font-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--heading-6-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-1-line-height-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--heading-1-line-height");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-2-line-height-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--heading-2-line-height");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-3-line-height-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--heading-3-line-height");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-4-line-height-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--heading-4-line-height");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-5-line-height-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--heading-5-line-height");
-          }
-          if (fieldBeingEditedName === "edit-lgms-heading-6-line-height-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--heading-6-line-height");
+          // Loop through values 1 to 6 for heading font sizes and colors
+          for (let i = 1; i <= 6; i++) {
+            if (fieldBeingEditedName === `edit-lgms-heading-${i}-font-size-0-value`) {
+              handleTextFieldChange(fieldBeingEdited, `--font-size-h${i}`);
+            }
+            if (fieldBeingEditedName === `edit-lgms-heading-${i}-font-colour-0-value`) {
+              handleTextFieldChange(fieldBeingEdited, `--heading-${i}-color`);
+            }
+            if (fieldBeingEditedName === `edit-lgms-heading-${i}-line-height-0-value`) {
+              handleTextFieldChange(fieldBeingEdited, `--heading-${i}-line-height`);
+            }
           }
 
           // Pre-header
