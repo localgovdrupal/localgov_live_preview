@@ -52,10 +52,11 @@
             fieldBeingEdited.value
           );
         });
-        const colourPickerInput = fieldBeingEdited
-          .closest(".colour-picker-field")
-          .querySelector(".colour-picker-field__picker");
-        if (colourPickerInput) {
+        let colourPickerInput;
+        if (fieldBeingEdited.closest(".colour-picker-field")) {
+          colourPickerInput = fieldBeingEdited
+            .closest(".colour-picker-field")
+            .querySelector(".colour-picker-field__picker");
           colourPickerInput.addEventListener("input", () => {
             bodyElement.style.setProperty(
               cssVariableName,
@@ -100,6 +101,15 @@
 
       const [headingFont6] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-6-font"]', context);
       const [headingFontWeight6] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-6-font-weight"]', context);
+
+      // Main menu
+      const [mainMenuLinkFontWeight] = once('mainMenuLinkFontWeight', '[data-drupal-selector="edit-lgms-main-menu-font-weight"]', context);
+      const [mainMenuSubMenuIcon] = once('mainMenuSubMenuIcon', '[data-drupal-selector="edit-lgms-submenu-icon"]', context);
+      const [mainMenuSubMenuIconRotation] = once('mainMenuSubMenuIconRotation', '[data-drupal-selector="edit-lgms-submenu-icon-rotation"]', context);
+      const [mainMenuOffCanvasMenuIcon] = once('mainMenuOffCanvasMenuIcon', '[data-drupal-selector="edit-lgms-off-canvas-menu-icon"]', context);
+
+      // Footer
+      const [footerItemsJustification] = once('footerItemsJustification', '[data-drupal-selector="edit-lgms-footer-items-alignment"]', context);
 
       // Defaut Items
       if (bodyFont) {
@@ -154,6 +164,25 @@
       }
       if (headingFontWeight6) {
         handleSelectChange(headingFontWeight6, "--heading-6-font-weight");
+      }
+
+      // Main menu
+      if (mainMenuLinkFontWeight) {
+        handleSelectChange(mainMenuLinkFontWeight, "--menu-main-font-weight");
+      }
+      if (mainMenuSubMenuIcon) {
+        handleSelectChange(mainMenuSubMenuIcon, "--menu-sub-menu-icon");
+      }
+      if (mainMenuSubMenuIconRotation) {
+        handleSelectChange(mainMenuSubMenuIconRotation, "--menu-item-toggle-icon-rotation");
+      }
+      if (mainMenuOffCanvasMenuIcon) {
+        handleSelectChange(mainMenuOffCanvasMenuIcon, "--off-canvas-menu-icon");
+      }
+
+      // Footer
+      if (footerItemsJustification) {
+        handleSelectChange(footerItemsJustification, "--footer-grid-column-justification");
       }
 
       window.addEventListener("click", function (e) {
@@ -301,7 +330,22 @@
             handleFieldChange(fieldBeingEdited, "--footer-link-hover-color");
           }
 
-
+          // Main menu
+          if (fieldBeingEditedName === "edit-lgms-main-menu-font-size-0-value") {
+            handleFieldChange(fieldBeingEdited, "--menu-main-font-size");
+          }
+          if (fieldBeingEditedName === "edit-lgms-submenu-background-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--menu-sub-menu-background-colour");
+          }
+          if (fieldBeingEditedName === "edit-lgms-submenu-link-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "---menu-sub-menu-link-colour");
+          }
+          if (fieldBeingEditedName === "edit-lgms-off-canvas-bg-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--off-canvas-background-color");
+          }
+          if (fieldBeingEditedName === "edit-lgms-off-canvas-text-colour-0-value") {
+            handleFieldChange(fieldBeingEdited, "--off-canvas-text-color");
+          }
 
         }
       });
