@@ -76,6 +76,17 @@
         });
       };
 
+      // Hide fields that will not have any effect on the editing of the microsite.
+      // The title field is the "Group name" field, it's the "Site name" field
+      // that we want to edit, so we hide the title field.
+      const fieldsToHide = [
+        once('groupTitle', '#drupal-off-canvas .field--name-label', context)[0],
+      ];
+
+      fieldsToHide.forEach((field) => {
+        field.style.display = "none";
+      });
+
       // Default Items
       const [bodyFont] = once('bodyFont', '[data-drupal-selector="edit-lgms-body-font"]', context);
       const [headingFont] = once('headingFont', '[data-drupal-selector="edit-lgms-heading-font"]', context);
