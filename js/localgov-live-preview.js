@@ -23,23 +23,27 @@
       });
 
       const micrositeId = msClass[0].replace("lgd-ms--", "");
-
-      // Get the id of the current node, so when we save the form
-      // we can redirect to the correct page
-      const [currentNode] = once("currentNode", ".full", context);
-      const currentNodePath = currentNode.dataset.quickeditEntityId;
+      const currentPath = window.location.pathname;
 
       const newTab = document.createElement("li");
       newTab.innerHTML = `
-        <a href="/group/${micrositeId}/edit?destination=${currentNodePath}"
-          class="use-ajax"
-          data-dialog-type="dialog"
-          data-dialog-renderer="off_canvas"
-          data-dialog-options="{&quot;width&quot;:800}">
-          Live Preview
+        <a>
+          Edit Microsite
         </a>`;
       tabsLists.forEach((tabsList) => {
         tabsList.appendChild(newTab);
+      });
+
+      newTab.addEventListener("click", (e) => {
+        e.preventDefault();
+        var ajaxSettings = {
+          url: `/group/${micrositeId}/edit?destination=${currentPath}`,
+          dialogType: 'dialog',
+          dialogRenderer: 'off_canvas',
+          dialog: { width: 400 },
+        };
+        // var myAjaxObject = Drupal.ajax(ajaxSettings);
+        Drupal.ajax(ajaxSettings).execute();
       });
 
       window.addEventListener("click", function (e) {

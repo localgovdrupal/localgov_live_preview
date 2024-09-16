@@ -8,4 +8,6 @@ localgov-live-preview:
   dependencies:
     - core/drupal
     - core/once
+    - core/jquery
+    - core/drupal.dialog.ajax
     - localgov_microsites_colour_picker_fields/localgov_microsites_colour_picker_fields
