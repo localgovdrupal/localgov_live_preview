@@ -28,7 +28,7 @@
       const newTab = document.createElement("li");
       newTab.innerHTML = `
         <a>
-          Edit Microsite
+          Edit Microsite Design
         </a>`;
       tabsLists.forEach((tabsList) => {
         tabsList.appendChild(newTab);
@@ -52,19 +52,25 @@
             fieldBeingEdited.value
           );
         });
-        let colourPickerInput;
-        if (fieldBeingEdited.closest(".colour-picker-field")) {
-          colourPickerInput = fieldBeingEdited
-            .closest(".colour-picker-field")
-            .querySelector(".colour-picker-field__picker");
-          colourPickerInput.addEventListener("input", () => {
-            bodyElement.style.setProperty(
-              cssVariableName,
-              colourPickerInput.value
-            );
-            colourPickerInput.closest(".colour-picker-field").querySelector(".colour-picker-field__text").value = colourPickerInput.value;
-          });
-        }
+      }
+
+      function handleColourFieldChange(colourField, cssVariableName) {
+        const colourPickerInput = colourField.closest('.colour-picker-field').querySelector('.colour-picker-field__picker');
+        const colourTextInput = colourField.closest('.colour-picker-field').querySelector('.colour-picker-field__text');
+        colourPickerInput.addEventListener("input", () => {
+          bodyElement.style.setProperty(
+            cssVariableName,
+            colourPickerInput.value
+          );
+          colourTextInput.value = colourPickerInput.value;
+        });
+        colourTextInput.addEventListener("input", () => {
+          bodyElement.style.setProperty(
+            cssVariableName,
+            colourTextInput.value
+          );
+          colourPickerInput.value = colourTextInput.value;
+        });
       }
 
       function handleSelectFieldChange(selectElement, cssVariableName) {
@@ -75,17 +81,6 @@
           );
         });
       };
-
-      // Hide fields that will not have any effect on the editing of the microsite.
-      // The title field is the "Group name" field, it's the "Site name" field
-      // that we want to edit, so we hide the title field.
-      const fieldsToHide = [
-        once('groupTitle', '#drupal-off-canvas .field--name-label', context)[0],
-      ];
-
-      fieldsToHide.forEach((field) => {
-        field.style.display = "none";
-      });
 
       // Default Items
       const [bodyFont] = once('bodyFont', '[data-drupal-selector="edit-lgms-body-font"]', context);
@@ -150,7 +145,6 @@
         }
       }
 
-
       // Main menu
       if (mainMenuLinkFontWeight) {
         handleSelectFieldChange(mainMenuLinkFontWeight, "--menu-main-font-weight");
@@ -176,32 +170,98 @@
           const fieldBeingEdited = e.target;
           const fieldBeingEditedName = e.target.dataset.drupalSelector;
 
+          // Colour picker fields
+          if (fieldBeingEdited.closest('.colour-picker-field')) {
+            // Default items
+            if (fieldBeingEdited.closest('.form-item-lgms-primary-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--color-accent");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-primary-colour-contrast-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--color-accent-contrast");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-secondary-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--color-secondary");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-secondary-colour-contrast-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--color-secondary-contrast");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-text-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--color-text");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-page-background-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--page-background-color");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-link-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--color-link");
+            }
+
+            // Pre-header
+            if (fieldBeingEdited.closest('.form-item-lgms-pre-header-bg-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--pre-header-background-color");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-pre-header-text-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--pre-header-text-color");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-pre-header-link-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--pre-header-link-color");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-pre-header-link-hover-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--pre-header-link-hover-color");
+            }
+
+            // Header
+            if (fieldBeingEdited.closest('.form-item-lgms-header-bg-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--header-background-color");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-header-text-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--header-text-color");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-header-link-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--header-link-color");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-header-link-hover-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--header-link-hover-color");
+            }
+
+            // Footer
+            if (fieldBeingEdited.closest('.form-item-lgms-footer-background-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--footer-background-color");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-footer-text-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--footer-text-color");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-footer-link-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--footer-link-color");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-footer-link-hover-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--footer-link-hover-color");
+            }
+
+            // Main menu
+            if (fieldBeingEdited.closest('.form-item-lgms-submenu-background-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--menu-sub-menu-background-colour");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-submenu-link-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "---menu-sub-menu-link-colour");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-off-canvas-bg-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--off-canvas-background-color");
+            }
+            if (fieldBeingEdited.closest('.form-item-lgms-off-canvas-text-colour-0-value')) {
+              handleColourFieldChange(fieldBeingEdited, "--off-canvas-text-color");
+            }
+          }
+
           // Default items
-          if (fieldBeingEditedName === "edit-lgms-primary-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--color-accent");
-          }
-          if (fieldBeingEditedName === "edit-lgms-primary-colour-contrast-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--color-accent-contrast");
-          }
-          if (fieldBeingEditedName === "edit-lgms-secondary-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--color-secondary");
-          }
-          if (fieldBeingEditedName === "edit-lgms-secondary-colour-contrast-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--color-secondary-contrast");
-          }
-          if (fieldBeingEditedName === "edit-lgms-text-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--color-text");
-          }
-          if (fieldBeingEditedName === "edit-lgms-page-background-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--page-background-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-link-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--color-link");
-          }
-          if (fieldBeingEditedName === "edit-lgms-base-line-height-0-value") {
+          console.clear();
+          console.log(fieldBeingEditedName);
+          if (fieldBeingEditedName === 'edit-lgms-base-line-height-0-value') {
             handleTextFieldChange(fieldBeingEdited, "--line-height");
           }
-          if (fieldBeingEditedName === "edit-lgms-base-spacing-0-value") {
+          if (fieldBeingEditedName === 'edit-lgms-base-font-size-0-value') {
+            handleTextFieldChange(fieldBeingEdited, "--font-size");
+          }
+          if (fieldBeingEditedName === 'edit-lgms-base-spacing-0-value') {
             handleTextFieldChange(fieldBeingEdited, "--spacing");
           }
 
@@ -219,63 +279,9 @@
             }
           }
 
-          // Pre-header
-          if (fieldBeingEditedName === "edit-lgms-pre-header-bg-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--pre-header-background-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-pre-header-text-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--pre-header-text-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-pre-header-link-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--pre-header-link-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-pre-header-link-hover-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--pre-header-link-hover-color");
-          }
-
-          // Header
-          if (fieldBeingEditedName === "edit-lgms-header-bg-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--header-background-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-header-text-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--header-text-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-header-link-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--header-link-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-header-link-hover-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--header-link-hover-color");
-          }
-
-          // Footer
-          if (fieldBeingEditedName === "edit-lgms-footer-bg-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--footer-background-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-footer-text-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--footer-text-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-footer-link-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--footer-link-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-footer-link-hover-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--footer-link-hover-color");
-          }
-
           // Main menu
           if (fieldBeingEditedName === "edit-lgms-main-menu-font-size-0-value") {
             handleTextFieldChange(fieldBeingEdited, "--menu-main-font-size");
-          }
-          if (fieldBeingEditedName === "edit-lgms-submenu-background-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--menu-sub-menu-background-colour");
-          }
-          if (fieldBeingEditedName === "edit-lgms-submenu-link-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "---menu-sub-menu-link-colour");
-          }
-          if (fieldBeingEditedName === "edit-lgms-off-canvas-bg-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--off-canvas-background-color");
-          }
-          if (fieldBeingEditedName === "edit-lgms-off-canvas-text-colour-0-value") {
-            handleTextFieldChange(fieldBeingEdited, "--off-canvas-text-color");
           }
 
         }
