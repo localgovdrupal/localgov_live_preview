@@ -253,8 +253,6 @@
           }
 
           // Default items
-          console.clear();
-          console.log(fieldBeingEditedName);
           if (fieldBeingEditedName === 'edit-lgms-base-line-height-0-value') {
             handleTextFieldChange(fieldBeingEdited, "--line-height");
           }
