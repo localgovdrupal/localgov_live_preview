@@ -1,5 +1,7 @@
 <?php
 
+use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
+
 /**
  * @file
  * Primary module hooks for LocalGov Live Preview module.
@@ -8,10 +10,25 @@
 /**
  * Implements hook_preprocess_HOOK().
  */
-function localgov_live_preview_preprocess_page(&$variables) {
-  // check if we are on a node page and are logged in
+function localgov_live_preview_microsites_preprocess_page(&$variables) {
+  // Check if we are on a node page and are logged in.
   if (\Drupal::currentUser()->isAuthenticated() && $node = \Drupal::routeMatch()->getParameter('node')) {
-    // add the live preview library
+    // Add the live preview library.
     $variables['#attached']['library'][] = 'localgov_live_preview_microsites/localgov-live-preview-microsites';
+  }
+}
+
+/**
+ * Implements hook_entity_form_mode_alter().
+ */
+function localgov_live_preview_microsites_entity_form_mode_alter(&$form_mode, \Drupal\Core\Entity\EntityInterface $entity) {
+  // Change the form mode for users with Administrator role.
+  if ($entity->getEntityTypeId() == 'group') {
+    // Check if the current request is for an Ajax modal/dialog.
+    $wrapper_format = \Drupal::request()->query->get(MainContentViewSubscriber::WRAPPER_FORMAT);
+    if (in_array($wrapper_format, ['drupal_dialog.off_canvas'])) {
+      // We are inside a modal.
+      $form_mode = 'localgov_live_preview';
+    }
   }
 }
