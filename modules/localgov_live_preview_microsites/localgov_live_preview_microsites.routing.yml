@@ -1,0 +1,7 @@
+localgov_live_preview_microsites.edit_design:
+  path: '/node/{node}/edit-microsite-design'
+  defaults:
+    _controller: '\Drupal\localgov_live_preview_microsites\Controller\LivePreviewMicrositesController::redirectToGroupEdit'
+    _title: 'Edit Microsite Design'
+  requirements:
+    _permission: 'use localgov live preview'

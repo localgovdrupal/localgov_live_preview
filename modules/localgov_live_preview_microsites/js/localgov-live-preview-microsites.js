@@ -25,24 +25,22 @@
       const micrositeId = msClass[0].replace("lgd-ms--", "");
       const currentPath = window.location.pathname;
 
-      const newTab = document.createElement("li");
-      newTab.innerHTML = `
-        <a>
-          Edit Microsite Design
-        </a>`;
       tabsLists.forEach((tabsList) => {
-        tabsList.appendChild(newTab);
-      });
-
-      newTab.addEventListener("click", (e) => {
-        e.preventDefault();
-        var ajaxSettings = {
-          url: `/group/${micrositeId}/edit?destination=${currentPath}`,
-          dialogType: 'dialog',
-          dialogRenderer: 'off_canvas',
-          dialog: { width: 400 },
-        };
-        Drupal.ajax(ajaxSettings).execute();
+        const editMicrositeDesignTabs = tabsList.querySelectorAll('.edit-microsite-design');
+        if (editMicrositeDesignTabs) {
+          editMicrositeDesignTabs.forEach((editMicrositeDesignTab) => {
+            editMicrositeDesignTab.addEventListener("click", (e) => {
+              e.preventDefault();
+              var ajaxSettings = {
+                url: `/group/${micrositeId}/edit?destination=${currentPath}`,
+                dialogType: 'dialog',
+                dialogRenderer: 'off_canvas',
+                dialog: { width: 400 },
+              };
+              Drupal.ajax(ajaxSettings).execute();
+            });
+          });
+        }
       });
 
       function handleTextFieldChange(fieldBeingEdited, cssVariableName) {

@@ -1,4 +1,4 @@
-administer localgov_live_preview configuration:
-  title: 'Administer localgov_live_preview configuration'
-  description: 'Optional description.'
+use localgov live preview:
+  title: 'Use LocalGov live preview'
+  description: 'Allows people with this role to use the LocalGov live preview feature.'
   restrict access: true
