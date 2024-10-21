@@ -4,15 +4,3 @@
  * @file
  * Primary module hooks for LocalGov Live Preview module.
  */
-
-/**
- * Implements hook_preprocess_HOOK().
- */
-function localgov_live_preview_preprocess_page(&$variables)
-{
-  // check if we are on a node page and are logged in
-  if (\Drupal::currentUser()->isAuthenticated() && $node = \Drupal::routeMatch()->getParameter('node')) {
-    // add the live preview library
-    $variables['#attached']['library'][] = 'localgov_live_preview/localgov-live-preview';
-  }
-}
