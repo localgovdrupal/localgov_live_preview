@@ -3,5 +3,8 @@
     "type": "drupal-module",
     "description": "LocalGov Drupal - Live preview",
     "homepage": "https://github.com/localgovdrupal/localgov_live_preview",
-    "license": "GPL-2.0-or-later"
+    "license": "GPL-2.0-or-later",
+    "require": {
+        "localgovdrupal/localgov_microsites_colour_picker_fields": "^1.0"
+    }
 }

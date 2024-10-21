@@ -1,0 +1,8 @@
+name: LocalGov Live Preview (microsites)
+type: module
+description: Opens microsites design form in a settings tray.
+package: LocalGov Drupal (Experimental)
+core_version_requirement: ^10 || ^11
+lifecycle: experimental
+dependencies:
+  - localgov_live_preview:localgov_live_preview

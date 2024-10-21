@@ -1,6 +1,6 @@
 // create a drupal javascript behaviour
-(function localovLivePreviewScript(Drupal) {
-  Drupal.behaviors.localovLivePreview = {
+(function localovLivePreviewMicrositesScript(Drupal) {
+  Drupal.behaviors.localovLivePreviewMicrosites = {
     attach: function (context, settings) {
       const bodyElement = document.querySelector("body");
       const tabsLists = once(
