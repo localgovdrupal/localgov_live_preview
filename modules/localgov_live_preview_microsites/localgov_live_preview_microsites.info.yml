@@ -6,3 +6,4 @@ core_version_requirement: ^10 || ^11
 lifecycle: experimental
 dependencies:
   - localgov_live_preview:localgov_live_preview
+  - localgov_microsites_colour_picker_fields:localgov_microsites_colour_picker_fields
