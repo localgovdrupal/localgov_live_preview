@@ -9,12 +9,12 @@
  * Implements hook_install().
  */
 function localgov_live_preview_install() {
-  \Drupal::messenger()->addStatus(__FUNCTION__);
+  \Drupal::messenger()->addStatus('Localgov Live Preview module installed.');
 }
 
 /**
  * Implements hook_uninstall().
  */
 function localgov_live_preview_uninstall() {
-  \Drupal::messenger()->addStatus(__FUNCTION__);
+  \Drupal::messenger()->addStatus('Localgov Live Preview module uninstalled.');
 }

@@ -3,4 +3,3 @@ type: module
 description: Opens editing interfaces in a modal, then provides a live preview when editing content.
 package: LocalGov Drupal (Experimental)
 core_version_requirement: ^10 || ^11
-lifecycle: experimental

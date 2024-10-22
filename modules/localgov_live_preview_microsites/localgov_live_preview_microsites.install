@@ -9,13 +9,14 @@
  * Implements hook_install().
  */
 function localgov_live_preview_microsites_install() {
-  \Drupal::messenger()->addStatus(__FUNCTION__);
+  \Drupal::messenger()->addStatus('Localgov Live Preview Microsites module installed.');
 }
 
 /**
  * Implements hook_uninstall().
  */
 function localgov_live_preview_microsites_uninstall() {
+  \Drupal::messenger()->addStatus('Localgov Live Preview Microsites module uninstalled.');
   // Remove the Live Preview form mode.
   $form_mode = \Drupal::entityTypeManager()->getStorage('entity_form_mode')->load('group.localgov_live_preview');
   if ($form_mode) {
