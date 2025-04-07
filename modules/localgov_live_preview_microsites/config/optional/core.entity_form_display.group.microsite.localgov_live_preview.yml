@@ -62,7 +62,6 @@ dependencies:
     - field.field.group.microsite.lgms_heading_font_weight
     - field.field.group.microsite.lgms_hide_title
     - field.field.group.microsite.lgms_link_colour
-    - field.field.group.microsite.lgms_main_logo
     - field.field.group.microsite.lgms_main_menu_font_size
     - field.field.group.microsite.lgms_main_menu_font_weight
     - field.field.group.microsite.lgms_modules_disabled
@@ -155,7 +154,6 @@ third_party_settings:
         - lgms_header_text_colour
         - lgms_header_link_colour
         - lgms_header_link_hover_colour
-        - lgms_main_logo
         - lgms_site_name_font_size
         - lgms_site_name_font_weight
         - lgms_header_vertical_alignment
@@ -796,13 +794,6 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  lgms_main_logo:
-    type: media_library_widget
-    weight: 9
-    region: content
-    settings:
-      media_types: {  }
-    third_party_settings: {  }
   lgms_main_menu_font_size:
     type: string_textfield
     weight: 14
@@ -978,6 +969,7 @@ hidden:
   lgms_footer_text_block_3: true
   lgms_footer_text_block_4: true
   lgms_hide_title: true
+  lgms_main_logo: true
   lgms_modules_disabled: true
   lgms_powered_by: true
   lgms_site_name: true
