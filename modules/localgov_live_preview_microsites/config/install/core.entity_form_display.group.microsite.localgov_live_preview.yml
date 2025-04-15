@@ -64,7 +64,6 @@ dependencies:
     - field.field.group.microsite.lgms_link_colour
     - field.field.group.microsite.lgms_main_menu_font_size
     - field.field.group.microsite.lgms_main_menu_font_weight
-    - field.field.group.microsite.lgms_modules_disabled
     - field.field.group.microsite.lgms_off_canvas_bg_colour
     - field.field.group.microsite.lgms_off_canvas_menu_icon
     - field.field.group.microsite.lgms_off_canvas_text_colour
