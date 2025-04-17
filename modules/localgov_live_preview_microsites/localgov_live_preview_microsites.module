@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * @file
+ * Contains hooks and functionality for LocalGov Live Preview Microsites module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\EventSubscriber\MainContentViewSubscriber;
 use Drupal\localgov_microsites_group\RolesHelper;
 
@@ -27,7 +33,8 @@ function localgov_live_preview_microsites_localgov_microsites_roles_default() {
  */
 function localgov_live_preview_microsites_preprocess_page(&$variables) {
   // Check if we are on a node page and are logged in.
-  if (\Drupal::currentUser()->isAuthenticated() && $node = \Drupal::routeMatch()->getParameter('node')) {
+  $node = \Drupal::routeMatch()->getParameter('node');
+  if ($node && \Drupal::currentUser()->isAuthenticated()) {
     // Add the live preview library.
     $variables['#attached']['library'][] = 'localgov_live_preview_microsites/localgov-live-preview-microsites';
   }
@@ -36,7 +43,7 @@ function localgov_live_preview_microsites_preprocess_page(&$variables) {
 /**
  * Implements hook_entity_form_mode_alter().
  */
-function localgov_live_preview_microsites_entity_form_mode_alter(&$form_mode, \Drupal\Core\Entity\EntityInterface $entity) {
+function localgov_live_preview_microsites_entity_form_mode_alter(&$form_mode, EntityInterface $entity) {
   // Change the form mode for users with Administrator role.
   if ($entity->getEntityTypeId() == 'group') {
     // Check if the current request is for an Ajax modal/dialog.
