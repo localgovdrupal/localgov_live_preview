@@ -7,4 +7,6 @@ localgov_live_preview_microsites.edit_design:
     attributes:
       class:
         - edit-microsite-design
+  cache_contexts:
+    - url.site
   class: '\Drupal\localgov_live_preview_microsites\Plugin\Menu\LivePreviewLocalTask'
