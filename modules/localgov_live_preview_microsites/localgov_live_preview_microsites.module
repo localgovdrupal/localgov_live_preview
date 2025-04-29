@@ -33,7 +33,7 @@ function localgov_live_preview_microsites_entity_form_mode_alter(&$form_mode, En
   if ($entity->getEntityTypeId() == 'group') {
     // Check if the current request is for an Ajax modal/dialog.
     $wrapper_format = \Drupal::request()->query->get(MainContentViewSubscriber::WRAPPER_FORMAT);
-    if (in_array($wrapper_format, ['drupal_dialog.off_canvas'], true)) {
+    if (in_array($wrapper_format, ['drupal_dialog.off_canvas'], TRUE)) {
       // We are inside a modal.
       $form_mode = 'localgov_live_preview';
     }
