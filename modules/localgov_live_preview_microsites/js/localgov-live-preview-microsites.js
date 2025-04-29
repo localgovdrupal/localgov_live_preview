@@ -1,7 +1,7 @@
 // create a drupal javascript behaviour
 (function localgovLivePreviewMicrositesScript(Drupal) {
   Drupal.behaviors.localgovLivePreviewMicrosites = {
-    attach(context, settings) {
+    attach(context) {
       const bodyElement = document.querySelector('body');
       const tabsLists = once(
         'allTabs',
