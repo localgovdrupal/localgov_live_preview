@@ -17,7 +17,7 @@ use Drupal\localgov_microsites_group\RolesHelper;
 /**
  * Implements hook_localgov_microsites_roles_default().
  */
-function localgov_live_preview_microsites_localgov_microsites_roles_default(): void {
+function localgov_live_preview_microsites_localgov_microsites_roles_default(): array {
 
   return [
     'global' => [
