@@ -6,5 +6,8 @@
     "license": "GPL-2.0-or-later",
     "require": {
         "localgovdrupal/localgov_microsites_colour_picker_fields": "^1.0"
+    },
+    "require-dev": {
+        "localgovdrupal/localgov_microsites_group": "^4.0"
     }
 }
