@@ -6,13 +6,11 @@ use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\localgov_microsites_group\Traits\GroupCreationTrait;
 use Drupal\Tests\localgov_microsites_group\Traits\InitializeGroupsTrait;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
-use Drupal\group\Entity\GroupInterface;
 use Drupal\localgov_microsites_group\DomainFromGroupTrait;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Functional tests for localgov_live_preview_microsites in the LocalGovDrupal
- * Microsites install profile.
+ * Functional tests for localgov_live_preview_microsites.
  */
 class MicrositesLivePreviewTest extends BrowserTestBase {
 
@@ -51,6 +49,8 @@ class MicrositesLivePreviewTest extends BrowserTestBase {
 
   /**
    * Domain 1.
+   *
+   * @var \Drupal\domain\DomainInterface
    */
   protected $domain1;
 
@@ -68,9 +68,9 @@ class MicrositesLivePreviewTest extends BrowserTestBase {
     parent::setUp();
 
     $this->createMicrositeGroups([], 1);
-    // Uncommenting this line causes an error:
+    // The following line causes an error:
     // - ConfigValueException: The hostname (web) is already registered.
-    //$this->createMicrositeGroupsDomains($this->groups);
+    $this->createMicrositeGroupsDomains($this->groups);
     $this->domain1 = $this->getDomainFromGroup($this->groups[1]);
     $this->adminUser1 = $this->createUser();
     $this->adminUser1->addRole('microsites_trusted_editor');
@@ -96,7 +96,7 @@ class MicrositesLivePreviewTest extends BrowserTestBase {
 
     $group1 = $this->groups[1];
     $group1_domain = $this->getDomainFromGroup($group1);
-    //assert($group1_domain instanceof DomainInterface);
+    assert($group1_domain instanceof DomainInterface);
 
     $this->micrositeDomainLogin($group1_domain, $this->adminUser1);
     $this->drupalGet('<front>');
