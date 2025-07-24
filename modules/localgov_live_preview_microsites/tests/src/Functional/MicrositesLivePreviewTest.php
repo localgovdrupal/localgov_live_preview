@@ -2,12 +2,14 @@
 
 namespace Drupal\Tests\localgov_live_preview_microsites\Functional;
 
+use Drupal\domain\DomainInterface;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\localgov_microsites_group\Traits\GroupCreationTrait;
 use Drupal\Tests\localgov_microsites_group\Traits\InitializeGroupsTrait;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\localgov_microsites_group\DomainFromGroupTrait;
 use Symfony\Component\HttpFoundation\Response;
+
 
 /**
  * Functional tests for localgov_live_preview_microsites.
@@ -82,7 +84,7 @@ class MicrositesLivePreviewTest extends BrowserTestBase {
   /**
    * Test localgov_live_preview_microsites installs ok in localgov_microsites.
    */
-  public function testLocalGovMicrositesInstall() {
+  public function testLocalGovMicrositesInstall() : void {
 
     // Test front page loads after site install.
     $this->drupalGet('<front>');
@@ -92,7 +94,7 @@ class MicrositesLivePreviewTest extends BrowserTestBase {
   /**
    * Test content access to the live preview tab.
    */
-  public function testLivePreviewAccess() {
+  public function testLivePreviewAccess() : void {
 
     $group1 = $this->groups[1];
     $group1_domain = $this->getDomainFromGroup($group1);
