@@ -13,7 +13,7 @@ on:
 
 jobs:
   tests:
-    uses: localgovdrupal/localgov_shared_workflows/.github/workflows/test-module.yml@1.x
+    uses: localgovdrupal/localgov_shared_workflows/.github/workflows/test-microsites.yml@1.x
     with:
       project: 'localgovdrupal/localgov_live_preview'
       project_path: 'web/modules/contrib/localgov_live_preview'
