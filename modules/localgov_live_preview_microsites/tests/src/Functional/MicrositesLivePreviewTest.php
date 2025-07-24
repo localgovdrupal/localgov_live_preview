@@ -6,10 +6,10 @@ use Drupal\domain\DomainInterface;
 use Drupal\Tests\BrowserTestBase;
 use Drupal\Tests\localgov_microsites_group\Traits\GroupCreationTrait;
 use Drupal\Tests\localgov_microsites_group\Traits\InitializeGroupsTrait;
+use Drupal\Tests\localgov_microsites_group\Functional\LoginOutTrait;
 use Drupal\Tests\node\Traits\NodeCreationTrait;
 use Drupal\localgov_microsites_group\DomainFromGroupTrait;
 use Symfony\Component\HttpFoundation\Response;
-
 
 /**
  * Functional tests for localgov_live_preview_microsites.
@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Response;
 class MicrositesLivePreviewTest extends BrowserTestBase {
 
   use InitializeGroupsTrait;
+  use LoginOutTrait;
   use NodeCreationTrait;
   use GroupCreationTrait, DomainFromGroupTrait {
     GroupCreationTrait::getEntityTypeManager insteadof DomainFromGroupTrait;
