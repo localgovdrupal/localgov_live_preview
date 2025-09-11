@@ -1,13 +1,13 @@
 {
-    "name": "localgovdrupal/localgov_live_preview",
+    "name": "drupal/localgov_live_preview",
     "type": "drupal-module",
     "description": "LocalGov Drupal - Live preview",
-    "homepage": "https://github.com/localgovdrupal/localgov_live_preview",
+    "homepage": "https://drupal.org/project/localgov_live_preview",
     "license": "GPL-2.0-or-later",
     "require": {
-        "localgovdrupal/localgov_microsites_colour_picker_fields": "^1.0"
+        "drupal/localgov_microsites_colour_picker_fields": "^1.0"
     },
     "require-dev": {
-        "localgovdrupal/localgov_microsites_group": "^4.0"
+        "drupal/localgov_microsites_group": "^4.0"
     }
 }
