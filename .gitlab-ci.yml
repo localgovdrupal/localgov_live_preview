@@ -23,4 +23,4 @@ variables:
 
 composer:
   variables:
-    DRUPAL_CORE: 10
+    DRUPAL_CORE: $CORE_PREVIOUS_STABLE
