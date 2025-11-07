@@ -20,3 +20,7 @@ variables:
   OPT_IN_TEST_PREVIOUS_MAJOR: 1
   OPT_IN_TEST_NEXT_MAJOR: 0
   OPT_IN_TEST_CURRENT: 0
+
+composer:
+  variables:
+    DRUPAL_CORE: 10
